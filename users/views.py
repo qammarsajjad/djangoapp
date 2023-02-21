@@ -18,7 +18,20 @@ def Register(request):
 
 @login_required
 def Profile(request):
-    u_form = UserUpadateForm(instance=request.user)
-    u_profile = UserUpdateProfile(instance=request.user.profile)
+    
+    if request.method == "POST":
+        u_form = UserUpadateForm(request.POST, instance=request.user)
+        u_profile = UserUpdateProfile(request.POST,request.FILES,instance=request.user.profile)
+
+        if u_form.is_valid() and u_profile.is_valid():
+            u_form.save()
+            u_profile.save()
+            messages.success(request,f'Your Acount has been Updated! ')
+            return redirect('profile')
+   
+    else: 
+        u_form = UserUpadateForm(instance=request.user)
+        u_profile = UserUpdateProfile(instance=request.user.profile)
+
     context = {'u_form':u_form,'u_profile':u_profile}
     return render (request,'users/profile.html',context)
