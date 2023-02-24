@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,DeleteView
 from .models import Post
 
 
@@ -16,6 +16,10 @@ class PostListView(ListView):
     context_object_name = 'posts'
     
     ordering = ['-date_posted']
+
+class PostDetail(DeleteView):
+    model = Post
+    template_name = 'blog/post_detail.html'
 
 def About(request):
    return render(request,'blog/about.html',{'title':'About'})

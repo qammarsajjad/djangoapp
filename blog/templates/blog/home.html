@@ -7,9 +7,9 @@
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ post.auther }}</a>
-                <small class="text-muted">{{ post.date_posted|timesince  }}</small>
+                <small class="text-muted">{{ post.date_posted|timesince  }} ago</small>
             </div>
-            <h2><a class="article-content" href="#">{{ post.content }}</a></h2>
+            <h2><a class="article-content" href="{% url 'post-detail' post.id %}">{{ post.content }}</a></h2>
             <p class="article-title">{{ post.title }}</p>
             </div>
         </article>
